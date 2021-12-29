@@ -12,24 +12,37 @@
     {
       "name": "listItems",
       "displayName": "Records to Use",
-      "type": "list",
-      "reference": "listItems",
-      "role": "formValue"
+      "type": "list"      
     },
 
     {
       "name": "xValues",
       "displayName": "X Values",
       "type": "text",
-      "role": "formValue"
+      "role": "listItem",
+      "reference": "listItems"      
+    },
+
+
+    {
+      "name": "yValues",
+      "displayName": "Y Values",
+      "type": "text",      
+      "role": "listItem",
+      "reference": "listItems"   
     },
 
     {
-      "name": "Y Values",
-      "displayName": "Y Values",
-      "type": "text",
-      "role": "formValue"
+      "name": "dataSetName",
+      "displayName": "Data Set Name",
+      "type": "text"
     }
 
+
+
+
     ]
+
+
+
 }

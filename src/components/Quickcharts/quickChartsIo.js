@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Image } from 'react-native'
-import FormValue from './manifest.json'
 
 
 const styles = StyleSheet.create({
@@ -13,67 +12,80 @@ const styles = StyleSheet.create({
 	},
 	
 	chart: {
-		width: '100%',
-		height: '100%',
+		width: 100,
+		height: 100,
 		resizeMode: 'contain',
-		
+		opacity: 1,	
 		
 	},
 })
 
 
-//What fields to group by?
-
-
-
-
-
-
-
 
 class Quickcharts extends Component {
 	render() {
-		const url = () => {
-			listItems.value;
-		};
-		{/*// compose url
-
-		// 	{
-		// 	    type: 'bar',
-		// 	    data: {
-		// 	      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-		// 	      datasets: [{
-		// 	        label: 'Users',
-		// 	        data: [50, 60, 70, 180]
-		// 	      }, {
-		// 	        label: 'Revenue',
-		// 	        data: [100, 200, 300, 400]
-		// 	      }]
-		// 	    }
-		// 	  }
-		*/}
-
-		console.log(FormValue.value);
-
-		return (
+		
+		
+		if (!this.props.listItems){
+			return <View></View>
+		}
+				
+		let c = {type: "bar", data: {}}
+		c.data.labels = this.props.listItems.map(item => item["xValues"])
+		const aggregatedData = this.props.listItems.reduce((acc, item) => {
 			
-			<View style={styles.wrapper}>
+		
+
+			if (!acc[item.xValues]){
+				acc[item.xValues] = item.yValues
+			}
+			else{
+				acc[item.xValues] += item.yValues
+			}
+
+			return acc
+
+			},{}
+		)
+		
+		console.log(aggregatedData)
+
+
+		c.data.datasets = [{
+			label: this.props.dataSetName,
+			data: Object.keys(aggregatedData).map(key => aggregatedData[key])
+		}]
+		
+		if(this.props.editor){
+			return(
+				<View style ={styles.wrapper}>
+			
 				<Image
 				  style={styles.chart}
 				  source={{
-					uri: 'https://quickchart.io/chart?c={type:\'bar\',data:{labels:[\'Q1\',\'Q2\',\'Q3\',\'Q4\'], datasets:[{label:\'Users\',data:[50,60,70,180]},{label:\'Revenue\',data:[100,200,300,400]}]}}',
+					uri: `https://quickchart.io/chart?c={type:'bar',data:{labels:['Q1','Q2','Q3','Q4'], datasets:[{label:'Users',data:[50,60,70,180]},{label:'Revenue',data:[100,200,300,400]}]}}`,
 				  }}
 				/>
+			
+			</View>
+			)
+		}
+
+		return (
+			<View style = {styles.wrapper}>
+			
+				<Image
+				  style={styles.chart}
+				  source={{
+					uri: `https://quickchart.io/chart?c=${JSON.stringify(c)}`,
+				  }}
+				/>
+			
 			</View>
 			
 		)
 	}
 }
-
-
-
-
-
 
   
 
