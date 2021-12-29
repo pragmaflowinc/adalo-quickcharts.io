@@ -36,10 +36,19 @@
       "name": "dataSetName",
       "displayName": "Data Set Name",
       "type": "text"
+    },
+
+    { "name": "onUrl",
+      "displayName": "triggered when url is created",
+      "type": "action",
+      "arguments": [
+        {
+          "displayName": "The Url", 
+          "type": "text"
+        }
+      ]
+      
     }
-
-
-
 
     ]
 
