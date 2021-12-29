@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image } from 'react-native'
-
+import { View, StyleSheet, Image } from 'react-native'
+import FormValue from './manifest.json'
 
 
 const styles = StyleSheet.create({
@@ -8,32 +8,56 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		alignItems: 'center', 
 		justifyContent: 'center',
+		height: 200,
+		
 	},
 	
 	chart: {
-		flex: 1,
+		width: '100%',
+		height: '100%',
 		resizeMode: 'contain',
-		width: null,
+		
+		
 	},
 })
 
-handleLayout = ({ nativeEvent }) => {
-	const { width } = (nativeEvent && nativeEvent.layout) || {};
-	const { width: prevWidth } = this.state;
-  
-	if (width !== prevWidth) {
-	  this.setState({ width });
-	}
-  };
+
+//What fields to group by?
+
+
+
+
+
+
 
 
 class Quickcharts extends Component {
 	render() {
-		const { color, text } = this.props				
+		const url = () => {
+			listItems.value;
+		};
+		{/*// compose url
+
+		// 	{
+		// 	    type: 'bar',
+		// 	    data: {
+		// 	      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+		// 	      datasets: [{
+		// 	        label: 'Users',
+		// 	        data: [50, 60, 70, 180]
+		// 	      }, {
+		// 	        label: 'Revenue',
+		// 	        data: [100, 200, 300, 400]
+		// 	      }]
+		// 	    }
+		// 	  }
+		*/}
+
+		console.log(FormValue.value);
 
 		return (
 			
-			<View style={styles.wrapper} onLayout={this.handleLayout}>
+			<View style={styles.wrapper}>
 				<Image
 				  style={styles.chart}
 				  source={{
@@ -50,39 +74,6 @@ class Quickcharts extends Component {
 
 
 
-
-//what are the records to use?
-    //use adalo list filters
-
-//which fields fox x & y?
-
-    
-
-
-//What fields to group by?
-    //add this as an option, or add checkbox for "group X values when identical"
-
-
-//compose url
-
-// {
-//     type: 'bar',
-//     data: {
-//       labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-//       datasets: [{
-//         label: 'Users',
-//         data: [50, 60, 70, 180]
-//       }, {
-//         label: 'Revenue',
-//         data: [100, 200, 300, 400]
-//       }]
-//     }
-//   }
-
-
-//show image using url
-
-   
 
   
 

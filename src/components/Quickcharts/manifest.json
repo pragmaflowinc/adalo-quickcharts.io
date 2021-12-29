@@ -1,21 +1,35 @@
 {
   "displayName": "Quickcharts",
-  "defaultWidth": 160,
-  "defaultHeight": 24,
+  "defaultWidth": 360,
+  "defaultHeight": 200,
+  "resizeY": true,
   "components": "./quickChartsIo.js",
   "icon": "./example-thumbnail.png",
-  "props": [
+  
+
+  "props": [    
+    
     {
-      "name": "text",
-      "displayName": "Text",
-      "type": "text",
-      "default": "Happy Hacking"
+      "name": "listItems",
+      "displayName": "Records to Use",
+      "type": "list",
+      "reference": "listItems",
+      "role": "formValue"
     },
+
     {
-      "name": "color",
-      "displayName": "Color",
-      "type": "color",
-      "default": "#00A898"
+      "name": "xValues",
+      "displayName": "X Values",
+      "type": "text",
+      "role": "formValue"
+    },
+
+    {
+      "name": "Y Values",
+      "displayName": "Y Values",
+      "type": "text",
+      "role": "formValue"
     }
-  ]
+
+    ]
 }
