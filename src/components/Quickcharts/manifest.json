@@ -5,14 +5,12 @@
   "resizeY": true,
   "components": "./quickChartsIo.js",
   "icon": "./example-thumbnail.png",
-  
 
-  "props": [    
-    
+  "props": [
     {
       "name": "listItems",
       "displayName": "Records to Use",
-      "type": "list"      
+      "type": "list"
     },
 
     {
@@ -20,16 +18,15 @@
       "displayName": "X Values",
       "type": "text",
       "role": "listItem",
-      "reference": "listItems"      
+      "reference": "listItems"
     },
-
 
     {
       "name": "yValues",
       "displayName": "Y Values",
-      "type": "text",      
+      "type": "text",
       "role": "listItem",
-      "reference": "listItems"   
+      "reference": "listItems"
     },
 
     {
@@ -38,20 +35,31 @@
       "type": "text"
     },
 
-    { "name": "onUrl",
-      "displayName": "triggered when url is created",
-      "type": "action",
-      "arguments": [
-        {
-          "displayName": "The Url", 
-          "type": "text"
-        }
-      ]
-      
+    {
+      "name": "chartType",
+      "displayName": "Chart Type",
+      "type": "text",
+      "control": {
+        "type": "menu",
+        "options": [
+          {
+            "label": "Bar",
+            "value": "bar"
+          },
+          {
+            "label": "Line",
+            "value": "line"
+          },
+          {
+            "label": "Pie",
+            "value": "pie"
+          },
+          {
+            "label": "Scatter",
+            "value": "scatter"
+          }
+        ]
+      }
     }
-
-    ]
-
-
-
+  ]
 }

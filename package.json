@@ -1,7 +1,7 @@
 {
   "name": "mitch-pf-library",
   "description": "A componenet that compiles multiple records and returns a quickchart.io chart, it automatically groups identical x values",
-  "version": "1.0.7",
+  "version": "1.0.12",
   "main": "index.js",
   "license": "ISC",
   "author": "Mitch Schwartz & Steven McKeown",

@@ -30,17 +30,19 @@ class Quickcharts extends Component {
 			return <View></View>
 		}
 				
-		let c = {type: 'bar', data: {}}
-		c.data.labels = this.props.listItems.map(item => item.xValues)
+		let c = {type: this.props.chartType, data: {}}
+		c.data.labels = [...new Set(this.props.listItems.map(item => (new Date(item.xValues)).toDateString()))]
 		const aggregatedData = this.props.listItems.reduce((acc, item) => {
 			
-		
+			var myDate = (new Date(item.xValues)).toDateString()
 
-			if (!acc[item.xValues]){
-				acc[item.xValues] = item.yValues
+			if (!acc[myDate]){
+				//acc[myDate] = item.yValues
+				acc[myDate] = 1
 			}
 			else{
-				acc[item.xValues] += item.yValues
+				//acc[myDate] += item.yValues
+				acc[myDate] += 1
 			}
 
 			return acc
