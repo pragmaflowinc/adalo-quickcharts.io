@@ -55,8 +55,8 @@
             "value": "pie"
           },
           {
-            "label": "Scatter",
-            "value": "scatter"
+            "label": "Doughnut",
+            "value": "doughnut"
           }
         ]
       }

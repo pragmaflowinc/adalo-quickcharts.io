@@ -77,7 +77,7 @@ class Quickcharts extends Component {
 				<Image
 				  style={styles.chart}
 				  source={{
-					uri: `https://quickchart.io/chart?c={type:'bar',data:{labels:['2021-12-06T17:44:12Z','2021-12-06T17:44:20Z'],datasets:[{label:'Daily Orders',data:['2','2']}]}}`,
+					uri: `https://quickchart.io/chart?c={type:'${this.props.chartType}',data:{labels:['2021-12-06T17:44:12Z','2021-12-06T17:44:20Z'],datasets:[{label:'Daily Orders',data:['2','2']}]}}`,
 
 					
 				  }}
