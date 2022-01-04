@@ -41,17 +41,25 @@
           {
             "label": "Line",
             "value": "line"
-          },
-          {
-            "label": "Pie",
-            "value": "pie"
-          },
-          {
-            "label": "Doughnut",
-            "value": "doughnut"
           }
         ]
       }
+    },
+    
+
+    {
+    "name": "backgroundColor",
+    "displayName": "Chart Fill Color",
+    "type": "color"
+    },
+  
+    {
+      "name": "borderColor",
+      "displayName": "Line Chart Border Color",
+      "type": "color"
     }
+
+    
+    
   ]
 }
