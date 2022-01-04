@@ -30,25 +30,29 @@ class Quickcharts extends Component {
       return <View></View>;
     }
 
-    let c = { type: this.props.chartType, data: {} };
+    let c = {
+      type: this.props.chartType,
 
-    c.data.labels = [
-      ...new Set(
-        this.props.listItems.map((item) => {
-          if (isDate(item.xValues)) {
-            return new Date(item.xValues).toDateString();
-          }
+      data: {},
+    };
 
-          return item.xValues;
-        })
-      ),
-    ];
+    this.props.chartType ? (c.type = this.props.chartType) : (c.type = "bar"),
+      (c.data.labels = [
+        ...new Set(
+          this.props.listItems.map((item) => {
+            if (isDate(item.xValues)) {
+              return new Date(item.xValues).toDateString();
+            }
+
+            return item.xValues;
+          })
+        ),
+      ]);
 
     const aggregatedData = this.props.listItems.reduce((acc, item) => {
       var xLabel = isDate(item.xValues)
         ? new Date(item.xValues).toDateString()
         : item.xValues;
-		
 
       if (!acc[xLabel]) {
         //acc[xLabel] = item.yValues
@@ -61,44 +65,59 @@ class Quickcharts extends Component {
       return acc;
     }, {});
 
+    let stylesArray = [];    
+
+    const definedStyles = [
+      { chartKey: "borderColor", localKey: "borderColor" },
+      { chartKey: "backgroundColor", localKey: "backgroundColor" },
+      { chartKey: "fill", localKey: "chartFill" },
+    ];
+
+    definedStyles.map((item) => {
+      if (this.props[item.localKey]) {
+        stylesArray.push(`${item.chartKey}:'${encodeURIComponent(this.props[item.localKey])}'`);
+      }
+      // if(!this.props[item.localKey] && !this.props[item.chartKey] == 'fill'){
+      // stylesArray.push(`${item.chartKey}:false`);
+      // }
+    });
+
     //console.log(aggregatedData)
+    console.log(this.props.borderColor);
 
     c.data.datasets = [
       {
         label: this.props.dataSetName,
+
         data: Object.keys(aggregatedData).map((key) => aggregatedData[key]),
+
+     
       },
     ];
 
-    //console.log(c);
+    
 
-    // if(this.props.onUrl){
-    // 	this.props.onUrl(
-    // 		this.props.editor
+    
 
-    // 		? `https://quickchart.io/chart?c={type:'bar',data:{labels:['Q1','Q2','Q3','Q4'], datasets:[{label:'Users',data:[50,60,70,180]},{label:'Revenue',data:[100,200,300,400]}]}}`
-
-    // 		: `https://quickchart.io/chart?c=${JSON.stringify(c)}`
-    // 	)
-    // }
+    console.log(stylesArray);
 
     if (this.props.editor) {
       return (
         <View style={styles.wrapper}>
-          <Text>demo chart</Text>
           <Image
             style={styles.chart}
             source={{
-              uri: `https://quickchart.io/chart?c={type:'${this.props.chartType}',data:{labels:['2021-12-06T17:44:12Z','2021-12-06T17:44:20Z'],datasets:[{label:'Daily Orders',data:['2','2']}]}}`,
+              uri: `https://quickchart.io/chart?c={type:'${c.type}',data:{labels:['Thing 1','Thing 2'],datasets:[{label:'Daily Orders',data:['3','1'],${stylesArray.join(',')}}]}}`,
             }}
           />
         </View>
       );
     }
 
+    
+
     return (
       <View style={styles.wrapper}>
-        <Text>prod chart</Text>
         <Image
           style={styles.chart}
           source={{
@@ -108,11 +127,9 @@ class Quickcharts extends Component {
               .map((label) => `'${label}'`)
               .join(",")}],datasets:[${c.data.datasets
               .map((dataset) => {
-                return `{label:'${dataset.label}',data:[${dataset.data.join(
-                  ","
-                )}]}`;
+                return `{label:'${dataset.label}',data:[${dataset.data.join(",")}],${stylesArray.join(',')}}`;
               })
-              .join(",")}]}}`,
+              .join(",")},]}}`,
           }}
         />
       </View>
