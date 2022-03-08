@@ -17,6 +17,23 @@ const styles = StyleSheet.create({
   },
 });
 
+
+//ios color fix?
+// function iOS() {
+//   return [
+//     'iPad Simulator',
+//     'iPhone Simulator',
+//     'iPod Simulator',
+//     'iPad',
+//     'iPhone',
+//     'iPod'
+//   ].includes(navigator.platform)
+//   // iPad on iOS 13 detection
+//   || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+// }
+
+// const iOS = iOS(); 
+
 function isDate(_date) {
   const _regExp = new RegExp(
     "^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$"
@@ -67,11 +84,21 @@ class Quickcharts extends Component {
 
     let stylesArray = [];    
 
+    
+    
     const definedStyles = [
       { chartKey: "borderColor", localKey: "borderColor" },
       { chartKey: "backgroundColor", localKey: "backgroundColor" },
       { chartKey: "fill", localKey: "chartFill" },
     ];
+
+    if (iOS){
+      const definedStyles = [
+        { chartKey: "borderColor", localKey: "borderColor" },
+        { chartKey: "backgroundColor", localKey: "backgroundColor" },
+        { chartKey: "fill", localKey: "chartFill" },
+      ];
+    }
 
     definedStyles.map((item) => {
       if (this.props[item.localKey]) {
