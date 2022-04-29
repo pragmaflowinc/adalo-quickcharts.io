@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { Image, Platform, StyleSheet, Text, View } from "react-native";
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -40,6 +40,8 @@ function isDate(_date) {
   );
   return _regExp.test(_date);
 }
+
+const chartBaseUrl = 'https://quickchart.io/chart?encoding=base64&c='
 
 class Quickcharts extends Component {
   render() {
@@ -82,18 +84,16 @@ class Quickcharts extends Component {
       return acc;
     }, {});
 
-    let stylesArray = [];    
+    let stylesArray = [];
 
-    
-    
-    const definedStyles = [
+    let definedStyles = [
       { chartKey: "borderColor", localKey: "borderColor" },
       { chartKey: "backgroundColor", localKey: "backgroundColor" },
       { chartKey: "fill", localKey: "chartFill" },
     ];
 
-    if (iOS){
-      const definedStyles = [
+    if (Platform.OS === "ios") {
+      definedStyles = [
         { chartKey: "borderColor", localKey: "borderColor" },
         { chartKey: "backgroundColor", localKey: "backgroundColor" },
         { chartKey: "fill", localKey: "chartFill" },
@@ -102,61 +102,54 @@ class Quickcharts extends Component {
 
     definedStyles.map((item) => {
       if (this.props[item.localKey]) {
-        stylesArray.push(`${item.chartKey}:'${encodeURIComponent(this.props[item.localKey])}'`);
+        //stylesArray.push(`${item.chartKey}:'${encodeURIComponent(this.props[item.localKey])}'`);
+        stylesArray.push(`${item.chartKey}:'${this.props[item.localKey]}'`);
       }
       // if(!this.props[item.localKey] && !this.props[item.chartKey] == 'fill'){
       // stylesArray.push(`${item.chartKey}:false`);
       // }
     });
 
-    //console.log(aggregatedData)
-    console.log(this.props.borderColor);
-
     c.data.datasets = [
       {
         label: this.props.dataSetName,
-
         data: Object.keys(aggregatedData).map((key) => aggregatedData[key]),
-
-     
       },
     ];
 
-    
-
-    
-
-    console.log(stylesArray);
-
     if (this.props.editor) {
+      //const chartUrl = "https://quickchart.io/chart?encoding=base64&c=" + encodeURIComponent(`{type:'${c.type}',data:{labels:['Thing 1','Thing 2'],datasets:[{label:'Daily Orders',data:['3','1'],${stylesArray.join(',')}}]}}`);
+      const chartUrl = chartBaseUrl + Buffer.from(`{type:'${c.type}',data:{labels:['Thing 1','Thing 2'],datasets:[{label:'Daily Orders',data:['3','1'],${stylesArray.join(',')}}]}}`).toString('base64');
+
       return (
         <View style={styles.wrapper}>
           <Image
             style={styles.chart}
             source={{
-              uri: `https://quickchart.io/chart?c={type:'${c.type}',data:{labels:['Thing 1','Thing 2'],datasets:[{label:'Daily Orders',data:['3','1'],${stylesArray.join(',')}}]}}`,
+              uri: chartUrl,
             }}
           />
         </View>
       );
     }
 
-    
+    const chartUrl = chartBaseUrl +
+      Buffer.from(`{type:'${c.type
+        }',data:{labels:[${c.data.labels
+          .map((label) => `'${label}'`)
+          .join(",")}],datasets:[${c.data.datasets
+            .map((dataset) => {
+              return `{label:'${dataset.label}',data:[${dataset.data.join(",")}],${stylesArray.join(',')}}`;
+            })
+            .join(",")},]}}`
+      ).toString("base64");
 
     return (
       <View style={styles.wrapper}>
         <Image
           style={styles.chart}
           source={{
-            uri: `https://quickchart.io/chart?c={type:'${
-              c.type
-            }',data:{labels:[${c.data.labels
-              .map((label) => `'${label}'`)
-              .join(",")}],datasets:[${c.data.datasets
-              .map((dataset) => {
-                return `{label:'${dataset.label}',data:[${dataset.data.join(",")}],${stylesArray.join(',')}}`;
-              })
-              .join(",")},]}}`,
+            uri: chartUrl,
           }}
         />
       </View>
