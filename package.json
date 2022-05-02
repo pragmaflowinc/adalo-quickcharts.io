@@ -1,7 +1,7 @@
 {
   "name": "mitch-pf-library",
   "description": "A component that compiles multiple records and returns a quickchart.io chart, it automatically groups identical x values",
-  "version": "1.1.32",
+  "version": "1.1.37",
   "main": "index.js",
   "license": "ISC",
   "author": "Mitch Schwartz, Steven McKeown, Dave Diplock",
@@ -11,7 +11,7 @@
     "publish": "adalo publish"
   },
   "adalo": {
-    "logo": "./example-logo.png",
+    "logo": "./logo.png",
     "displayName": "Quickcharts.io",
     "components": [
       {

@@ -18,21 +18,6 @@ const styles = StyleSheet.create({
 });
 
 
-//ios color fix?
-// function iOS() {
-//   return [
-//     'iPad Simulator',
-//     'iPhone Simulator',
-//     'iPod Simulator',
-//     'iPad',
-//     'iPhone',
-//     'iPod'
-//   ].includes(navigator.platform)
-//   // iPad on iOS 13 detection
-//   || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-// }
-
-// const iOS = iOS(); 
 
 function isDate(_date) {
   const _regExp = new RegExp(
@@ -123,6 +108,7 @@ class Quickcharts extends Component {
 
       return (
         <View style={styles.wrapper}>
+          <p>Quickcharts Beta</p>
           <Image
             style={styles.chart}
             source={{
