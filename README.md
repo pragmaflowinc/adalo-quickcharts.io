@@ -5,6 +5,7 @@
 
 ##Known Bugs
 - Chart Colors all become grey on iOS
+- Dependency vulnerabilities flagged by github
 
 
 This component has not been published to the marketplace at the time of this writting so the only way to use it is private.
