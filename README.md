@@ -1,9 +1,9 @@
 # Quickcharts.io for Adalo
 
-##Status - 2022-05-13
+## Status - 2022-05-13
 - Working
 
-##Known Bugs
+## Known Bugs
 - Chart Colors all become grey on iOS
 - Dependency vulnerabilities flagged by github
 
